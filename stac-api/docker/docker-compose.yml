@@ -1,7 +1,9 @@
 version: "3.9"
 services:
   stac-api:
-    build: .
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
     ports:
       - "8080:8080"
     env_file: .env
@@ -15,3 +17,14 @@ services:
       POSTGRES_DB: stac_db
     ports:
       - "5432:5432"
+volumes:
+  pgdata:
+    driver: local
+    driver_opts:
+      type: none
+      device: D:\Uni\Github-Private-Repository\stac-api\pgdata
+      o: bind
+
+x-application:
+  name: stac-api
+  context: D:\Uni\Github-Private-Repository\stac-api
